@@ -1,2 +1,3 @@
-
-<app-tile></app-tile>
+<mat-grid-list cols="4" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let t of tiles"><app-tile [num]="t"></app-tile></mat-grid-tile>
+</mat-grid-list>

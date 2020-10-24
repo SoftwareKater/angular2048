@@ -1,1 +1,5 @@
-<p>tile works!</p>
+<div class="tile" [ngStyle]="{'background-color': bgColor}">
+    <div *ngIf="!empty" class="tile-content">
+        {{ num }}
+    </div>
+</div>

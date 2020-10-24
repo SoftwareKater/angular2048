@@ -1,0 +1,14 @@
+.tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    font-size: large;
+}
+
+.tile-content {
+    color: white;
+}
