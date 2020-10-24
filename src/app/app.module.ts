@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GameBoardModule } from './game-board/game-board.module';
+import { GameUiModule } from './game-ui/game-ui.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { GameBoardModule } from './game-board/game-board.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     GameBoardModule,
+    GameUiModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

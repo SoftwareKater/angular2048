@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular2048';
+
+  public onDirection($event) {
+    console.log($event);
+  }
 }

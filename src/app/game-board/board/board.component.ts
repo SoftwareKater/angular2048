@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit {
     this.tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.initialize();
   }
-  
+
   public initialize() {
     const init = this.boardService.initializeBoard(this.tiles.length);
     this.tiles[init[0]] = init[1];
