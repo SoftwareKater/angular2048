@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -7,6 +7,10 @@ import { BoardService } from '../board.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
+  @Input() set move(value: 'up' | 'down' | 'left' | 'right') {
+    this.boardService.onMove(this.tiles, value);
+  }
+
   public tiles: any[];
 
   constructor(private boardService: BoardService) {}

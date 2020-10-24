@@ -5,12 +5,24 @@ export class BoardService {
     return [idx, val];
   }
 
-  public fillRandomTile(tiles: number[]) {
-    const freeTileIndices = tiles.filter((t) => t < 1).map((t, i) => i);
+  public fillRandomTile(tiles: number[]): number[] {
+    if (!tiles) {
+      return [];
+    }
+    // FIXME
+    const freeTileIndices = tiles.filter((t, i) => t < 1).map((t, i) => i);
     const idx =
       freeTileIndices[Math.floor(Math.random() * freeTileIndices.length)];
     const val = this.get2or4atRandom();
-    return [idx, val];
+    tiles[idx] = val;
+    return tiles;
+  }
+
+  public onMove(tiles: number[], direction: 'up' | 'down' | 'left' | 'right'): number[] {
+    console.log(tiles);
+    console.log(direction);
+    const newTiles = this.fillRandomTile(tiles);
+    return newTiles;
   }
 
   private get2or4atRandom() {
