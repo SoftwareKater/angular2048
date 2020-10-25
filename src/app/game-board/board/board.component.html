@@ -1,10 +1,10 @@
-<div
+<div class="touch-overlay"
   (swipeleft)="onSwipeLeft($event)"
   (swiperight)="onSwipeRight($event)"
   (swipeup)="onSwipeUp($event)"
   (swipedown)="onSwipeDown($event)"
 >
-  <mat-grid-list cols="4" rowHeight="1:1">
+  <mat-grid-list cols="4" rowHeight="74px">
     <mat-grid-tile *ngFor="let t of tiles"
       ><app-tile [num]="t"></app-tile
     ></mat-grid-tile>
