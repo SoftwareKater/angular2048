@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Direction } from '../definitions/direction.type';
 import { PlayerMove } from '../definitions/player-move.interface';
+import { BoardService } from '../game-board/board.service';
+import { BoardComponent } from '../game-board/board/board.component';
 
 @Component({
   selector: 'app-game',
@@ -8,11 +10,15 @@ import { PlayerMove } from '../definitions/player-move.interface';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
+  @ViewChild('board') private board: BoardComponent;
+
   public round: number;
+
   public playerMove: PlayerMove;
+
   public score: number;
 
-  constructor() {}
+  constructor(private readonly boardService: BoardService) {}
 
   ngOnInit(): void {
     this.round = 0;
@@ -27,7 +33,13 @@ export class GameComponent implements OnInit {
     };
   }
 
+  public onRefresh($event) {
+    this.board.initialize();
+  }
+
   public onScore($event) {
     this.score = $event;
   }
+
+  public onUndo($event) {}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-game-controls',
@@ -6,15 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-controls.component.scss'],
 })
 export class GameControlsComponent implements OnInit {
+  @Output() refreshClicked = new EventEmitter<boolean>();
+
+  @Output() undoClicked = new EventEmitter<boolean>();
+
   constructor() {}
 
   ngOnInit(): void {}
 
   public onRefreshClick() {
-    console.log('hit F5 for now');
+    this.refreshClicked.emit(true);
   }
 
   public onUndoClick() {
-    console.log('undoing your last move is not implemented yet.');
+    this.undoClicked.emit(true);
   }
 }

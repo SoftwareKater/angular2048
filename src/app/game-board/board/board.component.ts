@@ -32,11 +32,10 @@ export class BoardComponent implements OnInit {
   constructor(private boardService: BoardService) {}
 
   ngOnInit(): void {
-    this.tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.initialize();
   }
 
-  public initialize() {
-    this.tiles = this.boardService.initializeBoard(this.tiles);
+    public initialize(tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
+    this.tiles = this.boardService.initializeBoard(tiles);
   }
 }
