@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { PlayerMove } from 'src/app/definitions/player-move.interface';
 
 @Component({
   selector: 'app-board-controls',
@@ -6,25 +7,25 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./board-controls.component.scss'],
 })
 export class BoardControlsComponent implements OnInit {
-  @Output() direction = new EventEmitter<string>();
+  @Output() direction = new EventEmitter<PlayerMove>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   public onUpClick() {
-    this.direction.emit('up');
+    this.direction.emit({direction: 'up'});
   }
 
   public onDownClick() {
-    this.direction.emit('down');
+    this.direction.emit({direction: 'down'});
   }
 
   public onLeftClick() {
-    this.direction.emit('left');
+    this.direction.emit({direction: 'left'});
   }
 
   public onRightClick() {
-    this.direction.emit('right');
+    this.direction.emit({direction: 'right'});
   }
 }

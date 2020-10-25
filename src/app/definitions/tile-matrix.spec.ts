@@ -65,5 +65,15 @@ describe('TileMatrix', () => {
       expect(tileMatrix.get({ row: 0, column: 2 })).toBe(4);
       expect(tileMatrix.get({ row: 0, column: 3 })).toBe(0);
     });
+
+    it('should merge the most left numbers when mergeMove-ing left', () => {
+      const tiles = [4, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      tileMatrix = new TileMatrix(tiles);
+      tileMatrix.mergeMove('left');
+      expect(tileMatrix.get({ row: 0, column: 0 })).toBe(8);
+      expect(tileMatrix.get({ row: 0, column: 1 })).toBe(4);
+      expect(tileMatrix.get({ row: 0, column: 2 })).toBe(0);
+      expect(tileMatrix.get({ row: 0, column: 3 })).toBe(0);
+    });
   });
 });

@@ -1,8 +1,8 @@
 <div
-  (swipeleft)="move = 'left'"
-  (swiperight)="move = 'right'"
-  (swipeup)="move = 'up'"
-  (swipedown)="move = 'down'"
+  (swipeleft)="onSwipeLeft($event)"
+  (swiperight)="onSwipeRight($event)"
+  (swipeup)="onSwipeUp($event)"
+  (swipedown)="onSwipeDown($event)"
 >
   <mat-grid-list cols="4" rowHeight="1:1">
     <mat-grid-tile *ngFor="let t of tiles"

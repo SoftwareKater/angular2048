@@ -1,6 +1,6 @@
 import { Direction } from './direction.type';
 
 export interface PlayerMove {
-  round: number;
+  round?: number;
   direction: Direction;
 }

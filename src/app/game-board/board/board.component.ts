@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Direction } from 'src/app/definitions/direction.type';
+import { PlayerMove } from 'src/app/definitions/player-move.interface';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -8,11 +9,12 @@ import { BoardService } from '../board.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  @Input() set move(value: Direction) {
+  @Input() set move(value: PlayerMove) {
     if (!value) {
       return;
     }
-    this.tiles = this.boardService.onMove(this.tiles, value);
+    this.oldTilesField = this.tiles;
+    this.tiles = this.boardService.onMove(this.tiles, value.direction);
   }
 
   public set tiles(value: number[]) {
@@ -28,6 +30,8 @@ export class BoardComponent implements OnInit {
 
   private tilesField: number[];
 
+  private oldTilesField: number[];
+
   constructor(private boardService: BoardService) {}
 
   ngOnInit(): void {
@@ -38,5 +42,22 @@ export class BoardComponent implements OnInit {
     tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ) {
     this.tiles = this.boardService.initializeBoard(tiles);
+  }
+
+  public undo() {
+    this.tiles = this.oldTilesField;
+  }
+
+  public onSwipeLeft($event) {
+    this.move = {direction: 'left'};
+  }
+  public onSwipeRight($event) {
+    this.move = {direction: 'right'};
+  }
+  public onSwipeUp($event) {
+    this.move = {direction: 'up'};
+  }
+  public onSwipeDown($event) {
+    this.move = {direction: 'down'};
   }
 }

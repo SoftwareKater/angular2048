@@ -23,12 +23,11 @@ export class GameComponent implements OnInit {
     this.round = 0;
   }
 
-  public onDirection($event: Direction) {
+  public onDirection($event: PlayerMove) {
     this.round += 1;
-    const direction = $event;
     this.playerMove = {
       round: this.round,
-      direction,
+      direction: $event.direction,
     };
   }
 
@@ -40,5 +39,7 @@ export class GameComponent implements OnInit {
     this.score = $event;
   }
 
-  public onUndo($event) {}
+  public onUndo($event) {
+    this.board.undo();
+  }
 }
