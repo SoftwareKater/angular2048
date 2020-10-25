@@ -1,6 +1,10 @@
-<app-board #board [move]="playerMove" (score)="onScore($event)"></app-board>
+<app-board #board [move]="playerMove.direction" (score)="onScore($event)"></app-board>
+
 <div class="ui">
-    <app-scores [score]="score"></app-scores>
-    <app-game-controls (refreshClicked)="onRefresh($event)" (undoClicked)="onUndo($event)"></app-game-controls>
-    <app-board-controls (direction)="onDirection($event)"></app-board-controls>
+  <app-scores [score]="score"></app-scores>
+  <app-game-controls
+    (refreshClicked)="onRefresh($event)"
+    (undoClicked)="onUndo($event)"
+  ></app-game-controls>
+  <app-board-controls (direction)="onDirection($event)"></app-board-controls>
 </div>

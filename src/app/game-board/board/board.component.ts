@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PlayerMove } from 'src/app/definitions/player-move.interface';
+import { Direction } from 'src/app/definitions/direction.type';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -8,12 +8,11 @@ import { BoardService } from '../board.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  @Input() set move(value: PlayerMove) {
+  @Input() set move(value: Direction) {
     if (!value) {
       return;
     }
-    const direct = value.direction;
-    this.tiles = this.boardService.onMove(this.tiles, direct);
+    this.tiles = this.boardService.onMove(this.tiles, value);
   }
 
   public set tiles(value: number[]) {
@@ -35,7 +34,9 @@ export class BoardComponent implements OnInit {
     this.initialize();
   }
 
-    public initialize(tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]) {
+  public initialize(
+    tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ) {
     this.tiles = this.boardService.initializeBoard(tiles);
   }
 }

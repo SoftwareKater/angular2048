@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Direction } from '../definitions/direction.type';
 import { PlayerMove } from '../definitions/player-move.interface';
-import { BoardService } from '../game-board/board.service';
 import { BoardComponent } from '../game-board/board/board.component';
 
 @Component({
@@ -18,7 +17,7 @@ export class GameComponent implements OnInit {
 
   public score: number;
 
-  constructor(private readonly boardService: BoardService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.round = 0;
