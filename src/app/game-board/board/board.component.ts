@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PlayerMove } from 'src/app/definitions/player-move.interface';
 import { BoardService } from '../board.service';
 
@@ -18,14 +18,14 @@ export class BoardComponent implements OnInit {
 
   public set tiles(value: number[]) {
     this.tilesField = value;
-    this.score = this.tilesField.reduce((a, b) => a + b);
+    this.score.emit(this.tilesField.reduce((a, b) => a + b));
   }
 
   public get tiles() {
     return this.tilesField;
   }
 
-  public score: number;
+  @Output() public score = new EventEmitter<number>();
 
   private tilesField: number[];
 
