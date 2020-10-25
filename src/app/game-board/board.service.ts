@@ -1,16 +1,46 @@
+import { Direction } from '../definitions/direction.type';
+import { TileMatrix } from '../definitions/tile-matrix';
+
 export class BoardService {
-  public initializeBoard(tileCount: number) {
-    const idx = Math.floor(Math.random() * tileCount);
-    const val = this.get2or4atRandom();
-    return [idx, val];
+  /**
+   * Fill the board with two random tiles of value 2 or 4.
+   * @param tiles the current game board as a list of tiles
+   */
+  public initializeBoard(tiles: number[]) {
+    const newTiles = this.fillRandomTile(this.fillRandomTile(tiles));
+    return newTiles;
   }
 
-  public fillRandomTile(tiles: number[]): number[] {
+  /**
+   * Is called whenever the player makes a move. Calculates the new tiles based on
+   * the current tiles and the players move.
+   * @param tiles the current game board as a list of tiles
+   * @param direction the direction that the player chose
+   */
+  public onMove(tiles: number[], direction: Direction): number[] {
+    // calculate new position of tiles
+    const mergeMovedTiles = this.mergeMove(tiles, direction);
+    // If the board has changed, generate a new tile.
+    const boardChanged =
+      JSON.stringify(mergeMovedTiles) !== JSON.stringify(tiles);
+    const filledTiles = boardChanged
+      ? this.fillRandomTile(mergeMovedTiles)
+      : mergeMovedTiles;
+    return filledTiles;
+  }
+
+  private fillRandomTile(tiles: number[]): number[] {
     if (!tiles) {
       return [];
     }
-    // FIXME
-    const freeTileIndices = tiles.filter((t, i) => t < 1).map((t, i) => i);
+    const freeTileIndices = tiles
+      .map((t, i) => [t, i])
+      .filter((x) => x[0] < 1)
+      .map((x) => x[1]);
+    if (freeTileIndices.length < 1) {
+      console.log('GAME OVER!');
+      return tiles;
+    }
     const idx =
       freeTileIndices[Math.floor(Math.random() * freeTileIndices.length)];
     const val = this.get2or4atRandom();
@@ -18,14 +48,13 @@ export class BoardService {
     return tiles;
   }
 
-  public onMove(tiles: number[], direction: 'up' | 'down' | 'left' | 'right'): number[] {
-    console.log(tiles);
-    console.log(direction);
-    const newTiles = this.fillRandomTile(tiles);
-    return newTiles;
-  }
-
   private get2or4atRandom() {
     return Math.random() < 0.5 ? 2 : 4;
+  }
+
+  private mergeMove(tiles: number[], direction: Direction): number[] {
+    const tileMatrix = new TileMatrix(tiles);
+    tileMatrix.mergeMove(direction);
+    return tileMatrix.toTiles();
   }
 }

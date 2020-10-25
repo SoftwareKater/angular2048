@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Direction } from '../types/direction.type';
-import { PlayerMove } from '../types/player-move.interface';
+import { Direction } from '../definitions/direction.type';
+import { PlayerMove } from '../definitions/player-move.interface';
 
 @Component({
   selector: 'app-game',

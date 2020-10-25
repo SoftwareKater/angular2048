@@ -40,6 +40,6 @@ export class TileComponent implements OnInit {
   ngOnInit(): void {}
 
   public getBackgroundColor(num: number) {
-    return this.numToColorMap[num];
+    return this.numToColorMap[num] ? this.numToColorMap[num] : '#000';
   }
 }

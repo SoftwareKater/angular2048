@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PlayerMove } from 'src/app/definitions/player-move.interface';
 import { BoardService } from '../board.service';
 
 @Component({
@@ -7,11 +8,26 @@ import { BoardService } from '../board.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  @Input() set move(value: 'up' | 'down' | 'left' | 'right') {
-    this.boardService.onMove(this.tiles, value);
+  @Input() set move(value: PlayerMove) {
+    if (!value) {
+      return;
+    }
+    const direct = value.direction;
+    this.tiles = this.boardService.onMove(this.tiles, direct);
   }
 
-  public tiles: any[];
+  public set tiles(value: number[]) {
+    this.tilesField = value;
+    this.score = this.tilesField.reduce((a, b) => a + b);
+  }
+
+  public get tiles() {
+    return this.tilesField;
+  }
+
+  public score: number;
+
+  private tilesField: number[];
 
   constructor(private boardService: BoardService) {}
 
@@ -21,7 +37,6 @@ export class BoardComponent implements OnInit {
   }
 
   public initialize() {
-    const init = this.boardService.initializeBoard(this.tiles.length);
-    this.tiles[init[0]] = init[1];
+    this.tiles = this.boardService.initializeBoard(this.tiles);
   }
 }
