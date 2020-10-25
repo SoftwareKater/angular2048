@@ -10,6 +10,7 @@ import { PlayerMove } from '../definitions/player-move.interface';
 export class GameComponent implements OnInit {
   public round: number;
   public playerMove: PlayerMove;
+  public score: number;
 
   constructor() {}
 
@@ -24,5 +25,9 @@ export class GameComponent implements OnInit {
       round: this.round,
       direction,
     };
+  }
+
+  public onScore($event) {
+    this.score = $event;
   }
 }

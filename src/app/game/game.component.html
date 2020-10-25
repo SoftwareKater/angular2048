@@ -1,2 +1,6 @@
-<app-board [move]="playerMove"></app-board>
-<app-board-controls (direction)="onDirection($event)"></app-board-controls>
+<app-board [move]="playerMove" (score)="onScore($event)"></app-board>
+<div class="ui">
+    <app-scores [score]="score"></app-scores>
+    <app-game-controls></app-game-controls>
+    <app-board-controls (direction)="onDirection($event)"></app-board-controls>
+</div>

@@ -6,9 +6,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BoardService } from './board.service';
 
 @NgModule({
-  declarations: [TileComponent, BoardComponent],
+  declarations: [BoardComponent, TileComponent],
+  exports: [BoardComponent],
   providers: [BoardService],
   imports: [CommonModule, MatGridListModule],
-  exports: [BoardComponent],
 })
 export class GameBoardModule {}
