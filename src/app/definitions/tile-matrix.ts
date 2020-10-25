@@ -88,6 +88,9 @@ export class TileMatrix {
     this.mergeable[to.row][to.column] = false;
   }
 
+  // FIXME: mergeMove methods can be simplified knowing that
+  // merges can only appear, when the two tiles have the same value BEFORE the movement
+
   private mergeMoveDown() {
     for (let column = 0; column < this.length; column++) {
       for (let row = this.length - 1; row >= 0; row--) {
@@ -160,6 +163,7 @@ export class TileMatrix {
     }
     if (
       this.mergeable[targetTile.row][targetTile.column] &&
+      this.mergeable[sourceTile.row][sourceTile.column] && // bad fix for bad implementation of mergeMove methods
       this.get(targetTile) === this.get(sourceTile)
     ) {
       this.merge(sourceTile, targetTile);
