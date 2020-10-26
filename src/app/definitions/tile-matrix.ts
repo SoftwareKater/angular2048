@@ -122,8 +122,9 @@ export class TileMatrix {
     this.mergeable[to.row][to.column] = false;
   }
 
-  // FIXME: mergeMove methods can be simplified knowing that
-  // merges can only appear, when the two tiles have the same value BEFORE the movement
+  // FIXME: left and right swipes are treated different that 
+  // up and down swipes. Align them; use the approach for left
+  // and right swipes, its faster!
 
   private mergeMoveDown() {
     for (let column = 0; column < this.length; column++) {
@@ -140,31 +141,59 @@ export class TileMatrix {
   }
 
   private mergeMoveLeft() {
-    for (let row = 0; row < this.length; row++) {
-      for (let column = 0; column < this.length; column++) {
-        if (this.get({ row, column }) !== 0) {
-          for (let colIdx = column; colIdx >= 0; colIdx--) {
-            const sourceTile = { row, column: colIdx + 1 };
-            const targetTile = { row, column: colIdx };
-            this.moveOrMerge(sourceTile, targetTile);
-          }
-        }
+    this.matrix = this.matrix
+      .map((row) => this.moveRow(row, 'left'))
+      .map((movedRow) => this.mergeLeft(movedRow))
+      .map((mergedRow) => this.moveRow(mergedRow, 'left'));
+  }
+
+  private moveRow(row: number[], direction: Direction): number[] {
+    if (direction === 'up' || direction === 'down') {
+      throw new Error('Rows can only be moved left or right');
+    }
+    const movedRow = row.filter((tileValue) => tileValue !== 0);
+    while (movedRow.length !== this.length) {
+      if (direction === 'left') {
+        movedRow.push(0);
+      }
+      if (direction === 'right') {
+        movedRow.unshift(0);
       }
     }
+    return movedRow;
+  }
+
+  private mergeLeft(row: number[]): number[] {
+    const mergedRow = row;
+    for (let idx = 0; idx < row.length - 1; idx++) {
+      if (row[idx] === row[idx + 1]) {
+        mergedRow[idx] = row[idx] + row[idx + 1];
+        mergedRow[idx + 1] = 0;
+      } else {
+        mergedRow[idx] = row[idx];
+      }
+    }
+    return mergedRow;
+  }
+
+  private mergeRight(row: number[]): number[] {
+    const mergedRow = row;
+    for (let idx = row.length - 1; idx > 0; idx--) {
+      if (row[idx] === row[idx - 1]) {
+        mergedRow[idx] = row[idx] + row[idx - 1];
+        mergedRow[idx - 1] = 0;
+      } else {
+        mergedRow[idx] = row[idx];
+      }
+    }
+    return mergedRow;
   }
 
   private mergeMoveRight() {
-    for (let row = 0; row < this.length; row++) {
-      for (let column = this.length - 1; column >= 0; column--) {
-        if (this.get({ row, column }) !== 0) {
-          for (let colIdx = column; colIdx < this.length; colIdx++) {
-            const sourceTile = { row, column: colIdx - 1 };
-            const targetTile = { row, column: colIdx };
-            this.moveOrMerge(sourceTile, targetTile);
-          }
-        }
-      }
-    }
+    this.matrix = this.matrix
+      .map((row) => this.moveRow(row, 'right'))
+      .map((movedRow) => this.mergeRight(movedRow))
+      .map((mergedRow) => this.moveRow(mergedRow, 'right'));
   }
 
   private mergeMoveUp() {
