@@ -13,3 +13,18 @@ mat-grid-list {
 .touch-overlay {
   height: 300px;
 }
+
+.game-over-message {
+  border-radius: 10px;
+  margin-top: 125px;
+  margin-left: 25px;
+  position: absolute;
+  background-color: rgba(117, 6, 6, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 50px;
+  color: black;
+  font-size: xx-large;
+}

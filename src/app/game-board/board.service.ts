@@ -12,6 +12,15 @@ export class BoardService {
   }
 
   /**
+   * Returns true if there is no possible move on the board
+   * @param tiles the current game board as a list of tiles
+   */
+  public checkGameOver(tiles: number[]): boolean {
+    const tileMatrix = new TileMatrix(tiles);
+    return tileMatrix.checkGameOver();
+  }
+
+  /**
    * Is called whenever the player makes a move. Calculates the new tiles based on
    * the current tiles and the players move.
    * @param tiles the current game board as a list of tiles

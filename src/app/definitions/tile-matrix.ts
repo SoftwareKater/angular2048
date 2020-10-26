@@ -26,11 +26,37 @@ export class TileMatrix {
     this.initializeMergeable();
   }
 
+  public checkGameOver() {
+    const hasFreeTile = this.toTiles().find((v) => v === 0) === 0;
+    if (hasFreeTile) {
+      return false;
+    }
+    for (let row = 0; row < this.length; row++) {
+      for (let column = 0; column < this.length; column++) {
+        if (
+          this.get({ row, column }) === this.get({ row: row + 1, column }) ||
+          this.get({ row, column }) === this.get({ row: row - 1, column }) ||
+          this.get({ row, column }) === this.get({ row, column: column + 1 }) ||
+          this.get({ row, column }) === this.get({ row, column: column - 1 })
+        ) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   public getRow(index: number): number[] {
+    if (index < 0 || index > this.matrix.length - 1) {
+      return [];
+    }
     return this.matrix[index];
   }
 
   public getColumn(index: number): number[] {
+    if (index < 0 || index > this.matrix.length - 1) {
+      return [];
+    }
     const column = [];
     for (const row of this.matrix) {
       column.push(row[index]);
@@ -39,6 +65,14 @@ export class TileMatrix {
   }
 
   public get(index: MatrixIndex): number {
+    if (
+      index.row < 0 ||
+      index.row > this.matrix.length - 1 ||
+      index.column < 0 ||
+      index.column > this.matrix.length - 1
+    ) {
+      return -1;
+    }
     return this.matrix[index.row][index.column];
   }
 

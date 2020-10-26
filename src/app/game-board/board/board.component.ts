@@ -15,7 +15,12 @@ export class BoardComponent implements OnInit {
     }
     this.oldTilesField = this.tiles;
     this.tiles = this.boardService.onMove(this.tiles, value.direction);
+    if (this.boardService.checkGameOver(this.tiles)) {
+      this.displayGameOver = '';
+    }
   }
+
+  @Output() public score = new EventEmitter<number>();
 
   public set tiles(value: number[]) {
     this.tilesField = value;
@@ -26,7 +31,7 @@ export class BoardComponent implements OnInit {
     return this.tilesField;
   }
 
-  @Output() public score = new EventEmitter<number>();
+  public displayGameOver = 'None';
 
   private tilesField: number[];
 
