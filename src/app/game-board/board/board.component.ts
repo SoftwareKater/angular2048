@@ -48,6 +48,14 @@ export class BoardComponent implements OnInit {
     this.tiles = this.oldTilesField;
   }
 
+  public onPanStart($event) {
+    document.getElementsByTagName('body').item(0).style.pointerEvents = 'None';
+  }
+
+  public onPanEnd($event) {
+    document.getElementsByTagName('body').item(0).style.pointerEvents = '';
+  }
+
   public onSwipeLeft($event) {
     this.move = {direction: 'left'};
   }
