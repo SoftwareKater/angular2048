@@ -57,8 +57,11 @@ export class BoardService {
     return tiles;
   }
 
+  /**
+   * Return 4 with a 10% chance and 2 with a 90% chance.
+   */
   private get2or4atRandom() {
-    return Math.random() < 0.5 ? 2 : 4;
+    return Math.random() < 0.1 ? 4 : 2;
   }
 
   private mergeMove(tiles: number[], direction: Direction): number[] {
