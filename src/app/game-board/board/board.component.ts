@@ -54,11 +54,13 @@ export class BoardComponent implements OnInit {
   }
 
   public onPanStart($event) {
-    document.getElementsByTagName('body').item(0).style.pointerEvents = 'None';
+    document.getElementsByTagName('body').item(0).style.pointerEvents = 'none';
+    document.getElementsByTagName('body').item(0).style.touchAction = 'none';
   }
 
   public onPanEnd($event) {
     document.getElementsByTagName('body').item(0).style.pointerEvents = '';
+    document.getElementsByTagName('body').item(0).style.touchAction = '';
   }
 
   public onSwipeLeft($event) {
