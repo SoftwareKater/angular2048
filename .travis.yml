@@ -29,8 +29,8 @@ jobs:
     - npm run lint
   - stage: test
     script:
-    - npm run test
-  - stage: build & publish app
+    - npm run test:ci
+  - stage: build
     script:
     - npm run build
     
