@@ -122,7 +122,7 @@ export class TileMatrix {
     this.mergeable[to.row][to.column] = false;
   }
 
-  // FIXME: left and right swipes are treated different that 
+  // FIXME: left and right swipes are treated different that
   // up and down swipes. Align them; use the approach for left
   // and right swipes, its faster!
 
