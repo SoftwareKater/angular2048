@@ -14,7 +14,7 @@ export class TileComponent implements OnInit {
     } else {
       this.empty = true;
       this.numField = 0;
-      this.bgColor = 'white';
+      this.bgColor = '#b8b4b4';
     }
   }
   public get num() {

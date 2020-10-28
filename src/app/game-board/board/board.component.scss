@@ -2,6 +2,7 @@
   // flex: 1;
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   height: 300px;
 }
 
@@ -11,7 +12,13 @@ mat-grid-list {
 }
 
 .touch-overlay {
-  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 306px;
+  height: 306px;
+  background-color: grey;
+  border-radius: 6px;
 }
 
 .game-over-message {
