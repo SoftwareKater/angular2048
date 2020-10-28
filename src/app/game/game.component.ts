@@ -33,6 +33,7 @@ export class GameComponent implements OnInit {
 
   public onRefresh($event) {
     this.board.initialize();
+    this.board.displayGameOver = 'none';
   }
 
   public onScore($event) {

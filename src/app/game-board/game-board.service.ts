@@ -1,7 +1,7 @@
 import { Direction } from '../definitions/direction.type';
 import { TileMatrix } from '../definitions/tile-matrix';
 
-export class BoardService {
+export class GameBoardService {
   /**
    * Fill the board with two random tiles of value 2 or 4.
    * @param tiles the current game board as a list of tiles
@@ -26,16 +26,18 @@ export class BoardService {
    * @param tiles the current game board as a list of tiles
    * @param direction the direction that the player chose
    */
-  public onMove(tiles: number[], direction: Direction): number[] {
+  public onMove(
+    tiles: number[],
+    direction: Direction
+  ): number[] {
     // calculate new position of tiles
-    const mergeMovedTiles = this.mergeMove(tiles, direction);
+    let newTiles = this.mergeMove(tiles, direction);
     // If the board has changed, generate a new tile.
-    const boardChanged =
-      JSON.stringify(mergeMovedTiles) !== JSON.stringify(tiles);
-    const filledTiles = boardChanged
-      ? this.fillRandomTile(mergeMovedTiles)
-      : mergeMovedTiles;
-    return filledTiles;
+    const boardChanged = JSON.stringify(newTiles) !== JSON.stringify(tiles);
+    if (boardChanged) {
+      newTiles = this.fillRandomTile(newTiles);
+    }
+    return newTiles;
   }
 
   private fillRandomTile(tiles: number[]): number[] {

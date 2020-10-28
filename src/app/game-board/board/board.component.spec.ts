@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BoardService } from '../board.service';
+import { GameBoardService } from '../game-board.service';
 
 import { BoardComponent } from './board.component';
 
@@ -10,7 +10,7 @@ describe('BoardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BoardComponent],
-      providers: [BoardService],
+      providers: [GameBoardService],
     }).compileComponents();
   }));
 

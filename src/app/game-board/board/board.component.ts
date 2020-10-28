@@ -6,9 +6,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Direction } from 'src/app/definitions/direction.type';
 import { PlayerMove } from 'src/app/definitions/player-move.interface';
-import { BoardService } from '../board.service';
+import { GameBoardService } from '../game-board.service';
 
 export enum KeyCode {
   ArrowUp = 'ArrowUp',
@@ -45,13 +44,13 @@ export class BoardComponent implements OnInit {
     return this.tilesField;
   }
 
-  public displayGameOver = 'None';
+  public displayGameOver = 'none';
 
   private tilesField: number[];
 
   private oldTilesField: number[];
 
-  constructor(private boardService: BoardService) {}
+  constructor(private boardService: GameBoardService) {}
 
   ngOnInit(): void {
     this.initialize();
@@ -59,7 +58,6 @@ export class BoardComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event);
     switch (event.key) {
       case KeyCode.ArrowUp:
         this.moveUp(event);
@@ -80,6 +78,7 @@ export class BoardComponent implements OnInit {
     tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ) {
     this.tiles = this.boardService.initializeBoard(tiles);
+    this.oldTilesField = this.tiles;
   }
 
   public undo() {

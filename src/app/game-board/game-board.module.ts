@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { TileComponent } from './tile/tile.component';
 import { BoardComponent } from './board/board.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { BoardService } from './board.service';
+import { GameBoardService } from './game-board.service';
 
 @NgModule({
   declarations: [BoardComponent, TileComponent],
   exports: [BoardComponent],
-  providers: [BoardService],
+  providers: [GameBoardService],
   imports: [CommonModule, MatGridListModule],
 })
 export class GameBoardModule {}
