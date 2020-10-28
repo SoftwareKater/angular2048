@@ -5,6 +5,9 @@ import { MatrixIndex } from './matrix-index.interface';
  * Models the tiles of the game board as a quadratic matrix.
  */
 export class TileMatrix {
+  /** The sum of all numbers that were merged */
+  public mergers = 0;
+
   private matrix: number[][];
 
   private mergeable: boolean[][];
@@ -120,6 +123,7 @@ export class TileMatrix {
     this.matrix[to.row][to.column] = a + b;
     this.matrix[from.row][from.column] = 0;
     this.mergeable[to.row][to.column] = false;
+    this.mergers += a + b;
   }
 
   // FIXME: left and right swipes are treated different that
@@ -167,8 +171,10 @@ export class TileMatrix {
     const mergedRow = row;
     for (let idx = 0; idx < row.length - 1; idx++) {
       if (row[idx] === row[idx + 1]) {
-        mergedRow[idx] = row[idx] + row[idx + 1];
+        const sum = row[idx] + row[idx + 1];
+        mergedRow[idx] = sum;
         mergedRow[idx + 1] = 0;
+        this.mergers += sum;
       } else {
         mergedRow[idx] = row[idx];
       }
@@ -180,8 +186,10 @@ export class TileMatrix {
     const mergedRow = row;
     for (let idx = row.length - 1; idx > 0; idx--) {
       if (row[idx] === row[idx - 1]) {
-        mergedRow[idx] = row[idx] + row[idx - 1];
+        const sum = row[idx] + row[idx - 1];
+        mergedRow[idx] = sum;
         mergedRow[idx - 1] = 0;
+        this.mergers += sum;
       } else {
         mergedRow[idx] = row[idx];
       }

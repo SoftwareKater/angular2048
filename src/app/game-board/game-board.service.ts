@@ -2,12 +2,17 @@ import { Direction } from '../definitions/direction.type';
 import { TileMatrix } from '../definitions/tile-matrix';
 
 export class GameBoardService {
+  public score: number;
+  public oldScore: number;
+
   /**
    * Fill the board with two random tiles of value 2 or 4.
    * @param tiles the current game board as a list of tiles
    */
   public initializeBoard(tiles: number[]) {
     const newTiles = this.fillRandomTile(this.fillRandomTile(tiles));
+    this.score = 0;
+    this.oldScore = 0;
     return newTiles;
   }
 
@@ -31,7 +36,10 @@ export class GameBoardService {
     direction: Direction
   ): number[] {
     // calculate new position of tiles
-    let newTiles = this.mergeMove(tiles, direction);
+    const mergedMatrix = this.mergeMove(tiles, direction);
+    let newTiles = mergedMatrix.toTiles();
+    this.oldScore = this.score;
+    this.score += mergedMatrix.mergers;
     // If the board has changed, generate a new tile.
     const boardChanged = JSON.stringify(newTiles) !== JSON.stringify(tiles);
     if (boardChanged) {
@@ -66,9 +74,9 @@ export class GameBoardService {
     return Math.random() < 0.1 ? 4 : 2;
   }
 
-  private mergeMove(tiles: number[], direction: Direction): number[] {
+  private mergeMove(tiles: number[], direction: Direction): TileMatrix {
     const tileMatrix = new TileMatrix(tiles);
     tileMatrix.mergeMove(direction);
-    return tileMatrix.toTiles();
+    return tileMatrix;
   }
 }

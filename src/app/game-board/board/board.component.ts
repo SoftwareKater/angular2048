@@ -28,6 +28,7 @@ export class BoardComponent implements OnInit {
     }
     this.oldTilesField = this.tiles;
     this.tiles = this.boardService.onMove(this.tiles, value.direction);
+    this.score.emit(this.boardService.score);
     if (this.boardService.checkGameOver(this.tiles)) {
       this.displayGameOver = '';
     }
@@ -37,7 +38,6 @@ export class BoardComponent implements OnInit {
 
   public set tiles(value: number[]) {
     this.tilesField = value;
-    this.score.emit(this.tilesField.reduce((a, b) => a + b));
   }
 
   public get tiles() {
@@ -78,11 +78,14 @@ export class BoardComponent implements OnInit {
     tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ) {
     this.tiles = this.boardService.initializeBoard(tiles);
+    this.score.emit(this.boardService.score);
     this.oldTilesField = this.tiles;
   }
 
   public undo() {
     this.tiles = this.oldTilesField;
+    this.boardService.score = this.boardService.oldScore;
+    this.score.emit(this.boardService.score);
   }
 
   public onPanStart($event) {
