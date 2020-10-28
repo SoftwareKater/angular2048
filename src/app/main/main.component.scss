@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 100%;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+app-game {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.about-section {
+  display: flex;
+  align-items: flex-start;
+
+  .about-text {
+    width: 200px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #000;
+  }
+}
+
+#browser-how-to {
+  display: none;
+}
+
+// this breakpoint should also hide the arrow buttons
+@media only screen and (min-width: 600px) {
+  #browser-how-to {
+    display: block;
+  }
+  #mobile-how-to {
+    display: none;
+  }
+}
