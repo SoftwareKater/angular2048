@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GameModule } from './game/game.module';
+import { MainModule } from './main/main.module';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = {
@@ -24,8 +25,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    GameModule,
     HammerModule,
+    MainModule,
   ],
   providers: [
     {
