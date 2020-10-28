@@ -2,10 +2,10 @@
   class="touch-overlay"
   (panstart)="onPanStart($event)"
   (panend)="onPanEnd($event)"
-  (swipeleft)="onSwipeLeft($event)"
-  (swiperight)="onSwipeRight($event)"
-  (swipeup)="onSwipeUp($event)"
-  (swipedown)="onSwipeDown($event)"
+  (swipeup)="moveUp($event)"
+  (swipeleft)="moveLeft($event)"
+  (swipedown)="moveDown($event)"
+  (swiperight)="moveRight($event)"
 >
   <mat-grid-list cols="4" rowHeight="74px">
     <mat-grid-tile *ngFor="let t of tiles"
