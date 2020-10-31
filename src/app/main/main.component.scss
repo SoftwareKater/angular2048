@@ -1,35 +1,46 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  align-items: center;
   height: 100%;
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 8px;
+  margin-right: 8px;
 
   h1 {
     font-size: xx-large;
     font-weight: 500;
   }
+
+  .content {
+    width: 350px;
+  }
 }
 
 .heading {
-  margin-top: 20px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
 }
 
 app-game {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .about-section {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 
   .about-text {
-    width: 200px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    padding-top: 20px;
+    margin-bottom: 16px;
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
     border-top: 1px solid #000;
   }
 
