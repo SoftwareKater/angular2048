@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class ScoreService {
   public get score() {
-    return this._score;
+    return this.scoreField;
   }
   public set score(value: number) {
     this.oldScore = this.score;
-    this._score = value;
+    this.scoreField = value;
     if (value > this.highScore) {
       this.highScore = value;
     }
   }
   public highScore = 0;
 
-  private _score = 0;
+  private scoreField = 0;
   private oldScore = 0;
 
   constructor() {}
