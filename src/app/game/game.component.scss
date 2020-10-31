@@ -1,15 +1,13 @@
 :host {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.ui {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    * {
-        margin-bottom: 20px;
-    }
+app-game-controls {
+  margin-top: 16px;
+}
+
+app-board-controls {
+  display: none;
 }

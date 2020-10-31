@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { PlayerMove } from 'src/app/definitions/player-move.interface';
+import { ScoreService } from 'src/app/shared/services/score.service';
 import { GameBoardService } from '../game-board.service';
 
 export enum KeyCode {
@@ -28,13 +29,10 @@ export class BoardComponent implements OnInit {
     }
     this.oldTilesField = this.tiles;
     this.tiles = this.boardService.onMove(this.tiles, value.direction);
-    this.score.emit(this.boardService.score);
     if (this.boardService.checkGameOver(this.tiles)) {
       this.displayGameOver = '';
     }
   }
-
-  @Output() public score = new EventEmitter<number>();
 
   public set tiles(value: number[]) {
     this.tilesField = value;
@@ -50,7 +48,7 @@ export class BoardComponent implements OnInit {
 
   private oldTilesField: number[];
 
-  constructor(private boardService: GameBoardService) {}
+  constructor(private readonly boardService: GameBoardService, private readonly scoreService: ScoreService) {}
 
   ngOnInit(): void {
     this.initialize();
@@ -78,14 +76,13 @@ export class BoardComponent implements OnInit {
     tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ) {
     this.tiles = this.boardService.initializeBoard(tiles);
-    this.score.emit(this.boardService.score);
+    this.scoreService.init();
     this.oldTilesField = this.tiles;
   }
 
   public undo() {
     this.tiles = this.oldTilesField;
-    this.boardService.score = this.boardService.oldScore;
-    this.score.emit(this.boardService.score);
+    this.scoreService.resetScore();
   }
 
   public onPanStart($event) {

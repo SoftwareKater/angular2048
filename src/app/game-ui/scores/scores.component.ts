@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ScoreService } from 'src/app/shared/services/score.service';
 
 @Component({
   selector: 'app-scores',
@@ -6,22 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./scores.component.scss'],
 })
 export class ScoresComponent {
-  @Input() public set score(value: number) {
-    this.scoreField = value;
-    if (value > this.highscore) {
-      this.highscore = value;
-    }
-  }
-
   public get score() {
-    return this.scoreField;
+    return this.scoreService.score;
   }
 
-  public highscore = -1;
-
-  private scoreField: number;
-
-  constructor() {
-    this.score = 0;
+  public get highscore() {
+    return this.scoreService.highScore;
   }
+
+  constructor(private readonly scoreService: ScoreService) {}
 }
