@@ -1,18 +1,17 @@
+import { Injectable } from '@angular/core';
 import { Direction } from '../definitions/direction.type';
 import { TileMatrix } from '../definitions/tile-matrix';
+import { ScoreService } from '../shared/services/score.service';
 
+@Injectable()
 export class GameBoardService {
-  public score: number;
-  public oldScore: number;
-
+  constructor(private readonly scoreService: ScoreService) {}
   /**
    * Fill the board with two random tiles of value 2 or 4.
    * @param tiles the current game board as a list of tiles
    */
   public initializeBoard(tiles: number[]) {
     const newTiles = this.fillRandomTile(this.fillRandomTile(tiles));
-    this.score = 0;
-    this.oldScore = 0;
     return newTiles;
   }
 
@@ -38,8 +37,7 @@ export class GameBoardService {
     // calculate new position of tiles
     const mergedMatrix = this.mergeMove(tiles, direction);
     let newTiles = mergedMatrix.toTiles();
-    this.oldScore = this.score;
-    this.score += mergedMatrix.mergers;
+    this.scoreService.score += mergedMatrix.mergers;
     // If the board has changed, generate a new tile.
     const boardChanged = JSON.stringify(newTiles) !== JSON.stringify(tiles);
     if (boardChanged) {

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Direction } from '../definitions/direction.type';
 import { PlayerMove } from '../definitions/player-move.interface';
 import { BoardComponent } from '../game-board/board/board.component';
 
@@ -14,8 +13,6 @@ export class GameComponent implements OnInit {
   public round: number;
 
   public playerMove: PlayerMove;
-
-  public score: number;
 
   constructor() {}
 
@@ -34,10 +31,6 @@ export class GameComponent implements OnInit {
   public onRefresh($event) {
     this.board.initialize();
     this.board.displayGameOver = 'none';
-  }
-
-  public onScore($event) {
-    this.score = $event;
   }
 
   public onUndo($event) {
