@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { GameState } from 'src/app/definitions/game-state.interface';
 import { PlayerMove } from 'src/app/definitions/player-move.interface';
 import { ScoreService } from 'src/app/shared/services/score.service';
 import { GameBoardService } from '../game-board.service';
@@ -22,7 +23,7 @@ export enum KeyCode {
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
   @Input() set move(value: PlayerMove) {
     if (!value) {
       return;
@@ -48,11 +49,7 @@ export class BoardComponent implements OnInit {
 
   private oldTilesField: number[];
 
-  constructor(private readonly boardService: GameBoardService, private readonly scoreService: ScoreService) {}
-
-  ngOnInit(): void {
-    this.initialize();
-  }
+  constructor(private readonly boardService: GameBoardService) {}
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -72,17 +69,18 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  public initialize(
-    tiles: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ) {
-    this.tiles = this.boardService.initializeBoard(tiles);
-    this.scoreService.init();
+  public initialize(gameState: GameState = null) {
+    if (!gameState) {
+      const tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.tiles = this.boardService.initializeBoard(tiles);
+    } else {
+      this.tiles = gameState.gameBoard.tiles;
+    }
     this.oldTilesField = this.tiles;
   }
 
   public undo() {
     this.tiles = this.oldTilesField;
-    this.scoreService.resetScore();
   }
 
   public onPanStart($event) {
