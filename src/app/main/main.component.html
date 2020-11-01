@@ -8,23 +8,50 @@
       <app-scores></app-scores>
     </div>
   </div>
+  <div *ngIf="staging" class="staging-disclaimer">
+    <span>
+      You are on the
+      <a href="https://en.wikipedia.org/wiki/Deployment_environment#Staging"
+        >staging evirnoment</a
+      >. Use with caution!
+    </span>
+  </div>
+
   <app-game></app-game>
+
   <div class="about-section">
     <div id="browser-how-to" class="about-text">
-      How to play: Use your arrow keys to move the tiles. Tiles with the same
-      number merge into one when they touch. Add them up to reach 2048!
+      Use your arrow keys to move the tiles. Tiles with the same number merge
+      into one when they touch. Add them up to reach 2048!
     </div>
     <div id="mobile-how-to" class="about-text">
-      How to play: Swipe to move the tiles. Tiles with the same number merge into
-      one when they touch. Add them up to reach 2048!
+      Swipe to move the tiles. Tiles with the same number merge into one when
+      they touch. Add them up to reach 2048!
+    </div>
+    <div id="donate" class="about-text">
+      This game is free and the source code is publicly available on
+      <a href="https://github.com/SoftwareKater/angular2048">github</a>.
+    </div>
+    <div *ngIf="!staging" id="staging" class="about-text">
+      Want to see what may be coming up next? Have a look at the
+      <a href="http://softwarekater-2048-staging.herokuapp.com/"
+        >staging evironment</a
+      >!
+    </div>
+    <div *ngIf="staging" id="staging" class="about-text">
+      You are on the staging environment. Click
+      <a href="http://softwarekater-2048.herokuapp.com/">here</a> to go back to
+      the productive app!
     </div>
     <div id="acknowledgement" class="about-text">
       Based on the original version created by
-      <a href="https://play2048.co/">Gabriele Cirulli</a>.
+      <a href="https://play2048.co/">Gabriele Cirulli</a>
     </div>
-    <div id="creator" class="about-text">
-      Made with <span class="heart">❤</span> by Johannes Katzer. Source code on
-      <a href="https://github.com/SoftwareKater/angular2048">github</a>.
-    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div id="creator" class="about-text">
+    Made with <span class="heart">❤</span> by Johannes Katzer.
   </div>
 </div>
