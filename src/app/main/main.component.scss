@@ -16,6 +16,21 @@
   }
 }
 
+.staging-disclaimer {
+  width: 100%;
+  height: 32px;
+  border-radius: 4px;
+  font-weight: 500;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    color: black;
+  }
+}
+
 .heading {
   margin-top: 16px;
   width: 100%;
@@ -41,16 +56,26 @@ app-game {
     padding-top: 16px;
     padding-left: 16px;
     padding-right: 16px;
-    border-top: 1px solid #000;
-  }
-
-  .heart {
-    color: #e25555;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);;
   }
 }
 
 #browser-how-to {
   display: none;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  border-top: 1px ridge #000;
+  padding-top: 16px;
+  font-size: larger;
+
+  .heart {
+    color: #e25555;
+  }
 }
 
 // this breakpoint should also hide the arrow buttons
