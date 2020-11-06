@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Direction } from '../definitions/direction.type';
-import { TileMatrix } from '../definitions/tile-matrix';
-import { ScoreService } from '../shared/services/score.service';
+import { Direction } from '../../definitions/direction.type';
+import { TileMatrix } from '../../definitions/tile-matrix';
+import { ScoreService } from '../../shared/services/score.service';
 
 @Injectable()
 export class GameBoardService {

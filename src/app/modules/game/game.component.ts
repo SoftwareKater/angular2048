@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PlayerMove } from '../definitions/player-move.interface';
+import { PlayerMove } from '../../definitions/player-move.interface';
 import { BoardComponent } from '../game-board/board/board.component';
 
 @Component({
