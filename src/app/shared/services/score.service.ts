@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GameState } from 'src/app/definitions/game-state.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ScoreService {
@@ -12,16 +13,23 @@ export class ScoreService {
       this.highScore = value;
     }
   }
-  public highScore = 0;
+  public highScore: number;
 
-  private scoreField = 0;
-  private oldScore = 0;
+  private scoreField: number;
+  private oldScore: number;
 
   constructor() {}
 
-  public init(): void {
-    this.score = 0;
-    this.oldScore = 0;
+  public init(gameState: GameState = null): void {
+    if (!gameState) {
+      this.score = 0;
+      this.oldScore = 0;
+      this.highScore = 0;
+    } else {
+      this.score = gameState.score;
+      this.oldScore = gameState.score;
+      this.highScore = gameState.highscore;
+    }
   }
 
   public resetScore(): void {

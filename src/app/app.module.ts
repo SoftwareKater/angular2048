@@ -10,8 +10,7 @@ import * as Hammer from 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GameModule } from './game/game.module';
-import { MainModule } from './main/main.module';
+import { MainModule } from './modules/main/main.module';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = {
