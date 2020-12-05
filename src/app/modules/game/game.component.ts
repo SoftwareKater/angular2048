@@ -5,11 +5,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { GameState } from '../definitions/game-state.interface';
-import { PlayerMove } from '../definitions/player-move.interface';
+import { GameState } from 'src/app/definitions/game-state.interface';
+import { PlayerMove } from 'src/app/definitions/player-move.interface';
+import { GameStateStorageService } from 'src/app/shared/services/game-state-storage.service';
+import { ScoreService } from 'src/app/shared/services/score.service';
 import { BoardComponent } from '../game-board/board/board.component';
-import { GameStateStorageService } from '../shared/services/game-state-storage.service';
-import { ScoreService } from '../shared/services/score.service';
 
 @Component({
   selector: 'app-game',
@@ -44,13 +44,12 @@ export class GameComponent implements OnInit, AfterViewInit {
       round: this.round,
       direction: $event.direction,
     };
-    this.updateState();
   }
 
   public onRefresh($event) {
     this.round = 0;
     this.board.initialize();
-    this.scoreService.init();
+    this.scoreService.init({ ...this.storageService.get(), score: 0 });
     this.board.displayGameOver = 'none';
     this.updateState();
   }

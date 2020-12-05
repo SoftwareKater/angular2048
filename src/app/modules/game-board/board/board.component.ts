@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { GameState } from 'src/app/definitions/game-state.interface';
 import { PlayerMove } from 'src/app/definitions/player-move.interface';
+import { GameStateStorageService } from 'src/app/shared/services/game-state-storage.service';
 import { ScoreService } from 'src/app/shared/services/score.service';
 import { GameBoardService } from '../game-board.service';
 
@@ -28,11 +29,16 @@ export class BoardComponent {
     if (!value) {
       return;
     }
-    this.oldTilesField = this.tiles;
-    this.tiles = this.boardService.onMove(this.tiles, value.direction);
+    const maybeOldTiles = this.tiles;
+    const newTiles = this.boardService.onMove(this.tiles, value.direction);
+    if (JSON.stringify(maybeOldTiles) !== JSON.stringify(newTiles)) {
+      this.oldTilesField = maybeOldTiles;
+      this.tiles = newTiles;
+    }
     if (this.boardService.checkGameOver(this.tiles)) {
       this.displayGameOver = '';
     }
+    this.updateState();
   }
 
   public set tiles(value: number[]) {
@@ -49,7 +55,11 @@ export class BoardComponent {
 
   private oldTilesField: number[];
 
-  constructor(private readonly boardService: GameBoardService) {}
+  constructor(
+    private readonly boardService: GameBoardService,
+    private readonly storageService: GameStateStorageService,
+    private readonly scoreService: ScoreService
+  ) {}
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -107,5 +117,18 @@ export class BoardComponent {
 
   public moveRight($event) {
     this.move = { direction: 'right' };
+  }
+
+  private updateState() {
+    const newState: GameState = {
+      gameBoard: {
+        size: 4,
+        tiles: this.tiles,
+      },
+      score: this.scoreService.score,
+      highscore: this.scoreService.highScore,
+    };
+    console.log(newState);
+    this.storageService.set(newState);
   }
 }
