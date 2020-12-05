@@ -1,5 +1,4 @@
 import {
-  AfterContentChecked,
   AfterViewInit,
   Component,
   OnInit,
@@ -16,7 +15,7 @@ import { BoardComponent } from '../game-board/board/board.component';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
-export class GameComponent implements OnInit, AfterViewInit {
+export class GameComponent implements OnInit {
   @ViewChild('board') private board: BoardComponent;
 
   public round: number;
@@ -31,11 +30,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.round = 0;
     this.scoreService.init(this.storageService.get());
-  }
-
-  ngAfterViewInit(): void {
-    const recoverState = this.storageService.get();
-    this.board.initialize(recoverState);
   }
 
   public onDirection($event: PlayerMove) {

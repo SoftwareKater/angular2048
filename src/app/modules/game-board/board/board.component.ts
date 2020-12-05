@@ -24,7 +24,7 @@ export enum KeyCode {
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
   @Input() set move(value: PlayerMove) {
     if (!value) {
       return;
@@ -51,15 +51,20 @@ export class BoardComponent {
 
   public displayGameOver = 'none';
 
-  private tilesField: number[];
+  private tilesField: number[] = [];
 
-  private oldTilesField: number[];
+  private oldTilesField: number[] = [];
 
   constructor(
     private readonly boardService: GameBoardService,
     private readonly storageService: GameStateStorageService,
     private readonly scoreService: ScoreService
   ) {}
+
+    ngOnInit() {
+      const recoverState = this.storageService.get();
+      this.initialize(recoverState);
+    }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
