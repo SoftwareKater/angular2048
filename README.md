@@ -3,4 +3,15 @@
 
 # Angular2048
 
-Angular implementation of the famous mobile game "2048".
+Angular implementation of the famous game 2048 by Gabriele Cirulli.
+
+## Development
+
+```shell
+npm i
+npm run build
+npm run start
+´´´
+
+This serves the app at `localhost:8080`.
+
